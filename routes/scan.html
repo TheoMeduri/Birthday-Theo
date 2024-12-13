@@ -8,8 +8,6 @@
     body {
       position: relative;
       font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
       background-color: #1f2122;
       display: flex;
       flex-direction: column;
@@ -31,7 +29,7 @@
       box-shadow: 0 0 10px #00000357;
     }
 
-    #preview {
+    #preview, video {
       margin: 20px;
       max-width: 100%;
       width: 280px;
@@ -107,8 +105,9 @@
               stream.getTracks().forEach((track) => track.stop()); // Encerra a câmera
               video.style.display = "none";
 
+              const validQRCode = "Hgstgfjfgbs9i6%gb3fu396rbfj3tsds^5erb-sdhREESFSs4";
               // Exibe a mensagem de validação
-              if (qrCode.data === localStorage.getItem("qrcodeText")) {
+              if (qrCode.data === validQRCode) {
                 messageElement.style.display = "flex";
                 messageElement.innerHTML =
                   '<i class="ri-shield-check-line"></i> Você foi liberado!';

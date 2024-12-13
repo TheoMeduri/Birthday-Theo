@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escanear QR Code</title>
   <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+  <!-- Carregar ícones do Remixicon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       position: relative;
@@ -16,160 +18,124 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
-      font-size: 16px;
-      line-height: 1.5;
+      margin: 0;
     }
 
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
       color: #f9f9f9;
-      position: absolute;
-      top: 30px;
-      background-color: #303233;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00000357;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
     }
 
     video {
-      width: 90%;
+      width: 100%;
       max-width: 360px;
-      border: 4px solid #ffc65d;
-      border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border: 3px solid #ffc65d;
+      border-radius: 8px;
       margin-bottom: 20px;
-    }
-
-    #message {
-      position: absolute;
-      top: 100px;
-      background-color: #af4c4c88;
-      backdrop-filter: blur(10px);
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #ff3838;
-      display: none;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    #error {
-      position: absolute;
-      bottom: 80px;
-      color: #ff3838;
-      font-size: 1rem;
     }
 
     button {
       padding: 10px 20px;
       font-size: 1rem;
-      font-weight: bold;
-      color: #1f2122;
-      background-color: #ffc65d;
+      background: #ffc65d;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-top: 20px;
-      transition: background-color 0.3s;
+      color: #1f2122;
+      transition: background 0.3s;
     }
 
-    button:hover {
-      background-color: #e0a94f;
+    #message {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    button:disabled {
-      background-color: #7a7a7a;
-      cursor: not-allowed;
+    #message.success {
+      color: #4caf50;  /* Cor do texto de confirmação */
+    }
+
+    #message.error {
+      color: #ff3838;  /* Cor de erro */
+    }
+
+    i {
+      font-size: 2rem;
     }
   </style>
 </head>
 <body>
   <h1>Escanear QR Code</h1>
   <video id="preview" autoplay playsinline></video>
-  <button id="scanButton"><i class="ri-qr-scan-2-line"></i></button>
+  <button onclick="escanearQRCode()"><i class="ri-qr-scan-2-line"></i></button>
   <div id="message"></div>
   <div id="error"></div>
 
   <script>
-    const validQRCode = "Hgstgfjfgbs9i6%gb3fu396rbfj3tsds^5erb-sdhREESFSs4";
-
-    async function iniciarCamera() {
+    async function escanearQRCode() {
       const video = document.getElementById("preview");
+      const messageElement = document.getElementById("message");
       const errorElement = document.getElementById("error");
-      
+
       errorElement.innerText = ""; // Limpa mensagens de erro anteriores
+      messageElement.innerText = ""; // Limpa a mensagem de confirmação
 
       try {
-        // Solicita acesso à câmera traseira
+        // Solicita acesso à câmera com preferência para a traseira
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: "environment" },
-          audio: false
+          audio: false,
         });
+
+        // Exibe o vídeo na tela
         video.srcObject = stream;
-        return stream;
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        video.addEventListener("play", () => {
+          const scan = setInterval(() => {
+            // Atualiza o canvas com a imagem do vídeo
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Lê o QR Code da imagem
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+
+            if (qrCode) {
+              clearInterval(scan); // Para o processo de escaneamento
+              stream.getTracks().forEach((track) => track.stop()); // Encerra a câmera
+              video.style.display = "none";
+
+              const validQRCode = "Hgstgfjfgbs9i6%gb3fu396rbfj3tsds^5erb-sdhREESFSs4"; // Substitua pelo seu QR Code esperado
+
+              // Aqui você pode personalizar as mensagens que deseja mostrar
+              let validMessage = 'Entrada permitida!'; // Mensagem para quando for válido
+              let invalidMessage = 'QR Code não é válido!'; // Mensagem para quando for inválido
+
+              // Exibe a mensagem de validação
+              if (qrCode.data === validQRCode) {
+                messageElement.classList.add("success");
+                messageElement.classList.remove("error");
+                messageElement.innerHTML = `<i class="ri-shield-check-line"></i> ${validMessage}`;
+              } else {
+                messageElement.classList.add("error");
+                messageElement.classList.remove("success");
+                messageElement.innerHTML = `<i class="ri-error-warning-line"></i> ${invalidMessage}`;
+              }
+            }
+          }, 500); // Frequência de atualização do QR Code
+        });
       } catch (error) {
-        // Mostra mensagem de erro caso a câmera não possa ser acessada
         errorElement.innerText = "Erro ao acessar a câmera: " + (error.message || "Permissão negada.");
-        throw error;
       }
     }
-
-    function lerQRCode(video, stream) {
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-      const messageElement = document.getElementById("message");
-
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-
-      // Captura o frame do vídeo
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-
-      // Tenta ler o QR Code
-      const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
-      if (qrCode) {
-        stream.getTracks().forEach(track => track.stop()); // Para o stream
-        video.style.display = "none"; // Esconde o vídeo
-        if (qrCode.data === validQRCode) {
-          messageElement.style.display = "flex";
-          messageElement.innerHTML = '<i class="ri-shield-check-line"></i> Você foi liberado!';
-          messageElement.style.backgroundColor = "#4caf4f88";
-          messageElement.style.color = "#38ff3e";
-        } else {
-          messageElement.style.display = "flex";
-          messageElement.innerHTML = '<i class="ri-error-warning-line"></i> QR Code inválido!';
-          messageElement.style.backgroundColor = "#af4c4c88";
-          messageElement.style.color = "#ff3838";
-        }
-      } else {
-        // Mensagem de erro se não encontrar QR Code
-        messageElement.style.display = "flex";
-        messageElement.innerHTML = '<i class="ri-error-warning-line"></i> Nenhum QR Code detectado!';
-        messageElement.style.backgroundColor = "#af4c4c88";
-        messageElement.style.color = "#ff3838";
-      }
-    }
-
-    // Função chamada quando o botão é clicado
-    document.getElementById("scanButton").addEventListener("click", async () => {
-      const video = document.getElementById("preview");
-      const scanButton = document.getElementById("scanButton");
-      scanButton.disabled = true; // Desabilita o botão enquanto lê o QR Code
-      try {
-        const stream = await iniciarCamera();
-        setTimeout(() => {
-          lerQRCode(video, stream);
-          scanButton.disabled = false; // Habilita o botão novamente após a leitura
-        }, 1000); // Adiciona pequeno delay para estabilizar o vídeo
-      } catch (error) {
-        scanButton.disabled = false; // Reabilita o botão em caso de erro
-      }
-    });
   </script>
 </body>
 </html>

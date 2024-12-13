@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    font-family: 'Rubik', sans-serif;
+    background-color: #1f2122;
+    color: #F9F9F9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+img {
+    position: absolute;
+    left: 0;
+    top: var(--top);
+    width: 100%;
+}
+
+h1#title {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    left: 0;
+    font-size: 2.5rem;
+    color: #ffe5b6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #ffe5b6;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #333;
+    background-color: #1f2122;
+    color: #fff;
+    box-shadow: 0 0 10px #00000062;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ffc65d;
+    box-shadow: 0 0 5px #ffcc6e;
+}
+
+button {
+    padding: 15px;
+    background-color: #ffe5b6;
+    color: #161819;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00000062;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: #ffc65d;
+    box-shadow: 0 0 15px #ffc65d;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #ffc65d;
+}
+
+#loginForm, #signupForm {
+    position: absolute;
+    background-color: #161819;
+    padding: 30px;
+    width: 100%;
+    left: 0;
+    border-radius: 40px 40px 0 0;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+}
+
+#signupForm.active, #loginForm.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btns {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btns button {
+    font-size: .8rem;
+    padding: 10px;
+    background-color: #1f2122;
+    box-shadow: none;
+    color: #f9f9f9;
+    cursor: pointer;
+}
+
+.btns button.active {
+    background-color: #ffe5b6;
+    color: #161819;
+    box-shadow: 0 0 20px #0000008e;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+a {
+    color: #ffcc6e;
+    cursor: pointer;
+}

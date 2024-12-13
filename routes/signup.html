@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+    <link rel="stylesheet" href="form.css">
+    <title>Theo Meduri - Cadastro/Login</title>
+    <!-- Importar as bibliotecas do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <main>
+        <h1 id="title">Cadastro</h1>
+
+        <img src="../assets/img/tm.png" alt="Imagem de exemplo" style="--top: 20px;">
+    
+        <div id="formsContainer">
+            <section id="signupForm" class="form-container active">
+                <h1>Cadastro</h1><br>
+                <form id="signup" action="#" method="POST">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" required placeholder="Digite seu nome">
+                    <label for="signupEmail">E-mail:</label>
+                    <input type="email" id="signupEmail" required placeholder="Digite seu e-mail">
+                    
+                    <label for="signupPassword">Senha:</label>
+                    <input type="password" id="signupPassword" required placeholder="Digite sua senha">
+
+                    <button type="submit">Cadastrar</button>
+                    <p>Já tem uma conta? <a href="./signin">Entrar</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdw0woXXrckhgqV6TjB0EwVpbjmitkK9o",
+            authDomain: "birthday-theo.firebaseapp.com",
+            projectId: "birthday-theo",
+            storageBucket: "birthday-theo.appspot.com",
+            messagingSenderId: "591687533731",
+            appId: "1:591687533731:web:0a49be235baf9fc5c5eb16"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Função de cadastro
+        document.getElementById('signup').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio tradicional do formulário
+
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    console.log('Usuário cadastrado:', userCredential.user);
+                    // Armazena os dados do usuário no Firestore
+                    db.collection("users").doc(userCredential.user.uid).set({
+                        email: email,
+                        name: document.getElementById('name').value
+                    }).then(() => {
+                        window.location.href = "./home";
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro no cadastro:', error.message);
+                    alert("Erro: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

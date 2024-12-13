@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+    <title>Theo Meduri - Cadastro/Login</title>
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <main>
+        <h1 id="title">Login</h1>
+    
+        <img src="../assets/img/tm.png" alt="Imagem de exemplo" style="--top: 90px;">
+    
+        <!-- Formulários de Cadastro e Login -->
+        <div id="formsContainer">
+    
+            <!-- Formulário de Login -->
+            <section id="loginForm" class="form-container active">
+                <h1>Login</h1><br>
+                <form id="login" action="#" method="POST">
+                    <label for="loginEmail">E-mail:</label>
+                    <input type="email" id="loginEmail" required placeholder="Digite seu e-mail">
+                    
+                    <label for="loginPassword">Senha:</label>
+                    <input type="password" id="loginPassword" required placeholder="Digite sua senha">
+    
+                    <button type="submit">Entrar</button>
+                    <p>Crie uma conta. <a href="./signup">Cadastre-se</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <script src="app.js"></script>
+
+    <script>
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Theo Meduri</title>
+</head>
+<body>
+    <header>
+        <img src="../assets/img/tm (1).png">
+        <h1>Theo Meduri</h1>
+    </header>
+
+    <section>
+        <p id="title"><span id="txt">Suas informações</span> <span id="icon"><i class="ri-information-line"></i></span></p>
+        <span class="nome" id="username">--</span>
+        <p id="desc">Informações de viagem</p>
+        <div class="btns">
+            <button onclick="openRooms()"><i class="ri-hotel-bed-fill"></i></button>
+            <button onclick="openBag()"><i class="ri-briefcase-3-fill"></i></button>
+            <button onclick="openDocs()"><i class="ri-id-card-fill"></i></button>
+            <button onclick="openChecklist()"><i class="ri-list-check-3"></i></button>
+            <button onclick="openQRCode()"><i class="ri-qr-code-fill"></i></button>
+        </div>
+    </section>
+
+    <section>
+        <p id="title">
+            <span id="txt">Transporte</span>
+            <span id="icon"><i class="ri-bus-fill"></i></span>
+        </p>
+        <p class="desc">O transporte será realizado em uma van. Para embarcar, basta acessar o QR Code no nosso app e mostrá-lo ao monitor, que fará a leitura e autorizando sua entrada na van. Fique tranquilo(a), pais, o motorista é de total confiança e a Monique Meduri estará presente durante todo o trajeto.</p>
+        <button id="btn" onclick="alert('Ainda não disponível no app.')"><span>Deixe sua duvida</span> <i class="ri-question-fill"></i></button>
+    </section>
+
+    <section>
+        <p id="title">
+            <span id="txt">Confirme Presença</span>
+            <span id="icon"><i class="ri-user-follow-line"></i></span>
+        </p>
+        <p class="desc">Confirme sua presença em minha festa. Veja as informações no app antes de verificar sua presença.</p>
+        <button id="btn" onclick="alert('Ainda não foi liberado no app.')"><span>Confimar Presença</span> <i class="ri-user-follow-line"></i></button>
+    </section>
+
+    <section>
+        <p id="title">
+            <span id="txt">Veja suas fotos</span>
+            <span id="icon"><i class="ri-image-fill"></i></span>
+        </p>
+
+        <p class="desc">Visíveis apenas para o(a) modelo.</p>
+
+        <div class="imgs">
+            <div class="img">
+                <span id="save"><i class="ri-download-2-fill"></i></span>
+                <span><i class="ri-camera-off-line"></i></span>
+                <span id="name">Nenhuma foto disponível</span>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: #161819; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif;">
+        <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+        <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+      </footer>
+      
+
+      <div class="modal" id="room" style="right: -100%;">
+        <div class="modal-content">
+            <header style="background-color: #1f2122;">
+                <i class="ri-arrow-left-line" style="font-size: 1.3rem;" onclick="closeModal()"></i>
+                <h1>Quartos</h1>
+            </header>
+
+            <div class="rooms">
+                <div class="room" onclick="room1()">
+                    <i class="ri-hotel-bed-fill"></i>
+                    <span>Quarto 1</span>
+                </div>
+                <div class="room" onclick="room2()">
+                    <i class="ri-hotel-bed-fill"></i>
+                    <span>Quarto 2</span>
+                </div>
+                <div class="room" onclick="room3()">
+                    <i class="ri-hotel-bed-fill"></i>
+                    <span>Quarto 3</span>
+                </div>
+                <div class="room" onclick="room4()">
+                    <i class="ri-hotel-bed-fill"></i>
+                    <span>Quarto 4</span>
+                </div>
+
+            </div>
+
+            <div class="room1" style="right: -100%;">
+                <header style="background-color: #1f2122;">
+                    <i class="ri-arrow-left-line" style="font-size: 1.3rem;" id="closeModalRoom"></i>
+                    <h1>Quarto 1</h1>
+                </header>
+
+                <div class="persons">
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Giovana Burato</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Maria Fernanda</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Mariane Nilander</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Daniele Profeta</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Nicole de Marco</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Caroline Garcia</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room2" style="right: -100%;">
+                <header style="background-color: #1f2122;">
+                    <i class="ri-arrow-left-line" style="font-size: 1.3rem;" id="closeModalRoom2"></i>
+                    <h1>Quarto 2</h1>
+                </header>
+
+                <div class="persons">
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Marcelly Neris</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Cabrielli Carvalho</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Sarah de Anchieta</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Caroline Batista</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Nathalia Borali</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room3" style="right: -100%;">
+                <header style="background-color: #1f2122;">
+                    <i class="ri-arrow-left-line" style="font-size: 1.3rem;" id="closeModalRoom3"></i>
+                    <h1>Quarto 3</h1>
+                </header>
+
+                <div class="persons">
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Pietra Rocha</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Isabela Rodrigues</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Isabela Nogueira</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room4" style="right: -100%;">
+                <header style="background-color: #1f2122;">
+                    <i class="ri-arrow-left-line" style="font-size: 1.3rem;" id="closeModalRoom4"></i>
+                    <h1>Quarto 4</h1>
+                </header>
+
+                <div class="persons">
+                    <div class="person">
+                        <i class="ri-user-3-fill"></i>
+                        <span>Edgar Oliveira</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <footer style="position: absolute; width: 100%; bottom: 0; background-color: #1f2122; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif;">
+                <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+                <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+            </footer>
+        </div>
+      </div>
+
+      <div class="modal" id="bag" style="right: -100%;">
+        <div class="modal-content">
+            <header style="background-color: #1f2122;">
+                <i class="ri-arrow-left-line" style="font-size: 1.3rem;" onclick="closeModal()"></i>
+                <h1>Mala de Viagem</h1>
+            </header>
+
+            <section>
+                <p id="title">
+                    <span id="txt">Prepare sua mala</span>
+                    <span id="icon"><i class="ri-briefcase-3-fill"></i></span>
+                </p>
+                <p class="desc">Você deve preparar sua mala com itens essenciais para sua viagem. Evite incluir objetos como:  </p>
+                <div class="persons2">
+                    <div class="person">
+                        <i class="ri-customer-service-fill"></i>
+                        <span>Fones de ouvido</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-speaker-fill"></i>
+                        <span>Caixas de som</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-book-shelf-fill"></i>
+                        <span>Livros</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-bread-fill"></i>
+                        <span>Comidas</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-add-fill"></i>
+                        <span>Coisas desnecessárias</span>
+                    </div>
+                </div>
+            </section>
+
+            <footer style="position: absolute; width: 100%; bottom: 0; background-color: #1f2122; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif;">
+                <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+                <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+            </footer>
+        </div>
+      </div>
+
+       <div class="modal" id="docs" style="right: -100%;">
+        <div class="modal-content">
+            <header style="background-color: #1f2122;">
+                <i class="ri-arrow-left-line" style="font-size: 1.3rem;" onclick="closeModal()"></i>
+                <h1>Documentos</h1>
+            </header>
+
+            <section>
+                <p id="title">
+                    <span id="txt">Documentos necessários</span>
+                    <span id="icon"><i class="ri-id-card-fill"></i></span>
+                </p>
+                <p class="desc">Veja a lista dos documentos necessários para sua viagem</p>
+                <div class="persons2">
+                    <div class="person">
+                        <i class="ri-id-card-fill"></i>
+                        <span>RG (Atualizado)</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-ticket-fill"></i>
+                        <span>Convite do Evento</span>
+                    </div>
+                    <div class="person">
+                        <i class="ri-phone-fill"></i>
+                        <span>Contato de Emergência</span>
+                    </div>
+                </div>
+            </section>
+
+            <footer style="position: absolute; width: 100%; bottom: 0; background-color: #1f2122; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif;">
+                <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+                <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+            </footer>
+        </div>
+      </div>
+
+      <div class="modal" id="checklist" style="right: -100%;">
+        <div class="modal-content">
+            <header style="background-color: #1f2122;">
+                <i class="ri-arrow-left-line" style="font-size: 1.3rem;" onclick="closeModal()"></i>
+                <h1>Checklist</h1>
+            </header>
+
+            <section style="max-height: 690px; overflow: auto;">
+                <p id="title">
+                    <span id="txt">Prepare-se melhor</span>
+                    <span id="icon"><i class="ri-list-check-3"></i></span>
+                </p>
+                <p class="desc">Preparamos uma checklist para você</p>
+                <div class="checklist" id="checklist-items">
+                    <p id="desc" style="opacity: .7;">Ainda não disponível no app.</p>
+                </div>
+            </section>
+
+            <footer style="position: absolute; width: 100%; bottom: 0; background-color: #1f2122; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif;">
+                <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+                <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+            </footer>
+        </div>
+      </div> 
+
+      <div class="modal" id="qrcode" style="right: -100%;">
+        <div class="modal-content">
+            <header style="background-color: #1f2122; height: 60px;">
+                <i class="ri-arrow-left-line" style="font-size: 1.3rem;" onclick="closeModal()"></i>
+                <h1>QR Code</h1>
+            </header>
+
+            <div class="qrcode">
+                <div class="qr" id="qrCode"></div>
+                <span>Escaneie este QR Code para liberação</span>
+            </div>
+
+            <footer style="position: absolute; width: 100%; bottom: 0; background-color: #1f2122; padding: 20px; text-align: center; font-family: 'Rubik', sans-serif; height: 70px;">
+                <p style="margin: 0; font-size: 14px; color: #f9f9f9;">© 2024 Todos os direitos reservados.</p>
+                <p style="margin: 5px 0 0; font-size: 12px; color: #f9f9f9b7;">App criado com carinho para um dia inesquecível!</p>
+            </footer>
+        </div>
+      </div>
+      <!-- Importar as bibliotecas do Firebase -->
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore-compat.js"></script>
+
+      <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+      <script src="../assets/js/script.js"></script>
+
+</body>
+</html>

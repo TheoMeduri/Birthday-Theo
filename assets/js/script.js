@@ -30,22 +30,27 @@ function openRooms() {
 }
 
 function gerarQRCode() {
-    const qrCode = new QRCode(document.getElementById("qrCode"), {
-      text: "gstgfttTTbklfoyhfg67935645nfkUHGTFfgfsnfgsb-sgdfsdfCDHbs.sdsSEDtygh", // Coloque o link ou texto desejado
+    const randomText = Math.random().toString(36).substring(2, 15) + Date.now();
+    localStorage.setItem("qrcodeText", randomText); // Salva o texto localmente
+
+    // Gera o QR Code
+    const qrContainer = document.getElementById("qrCode");
+    qrContainer.innerHTML = ""; // Limpa o container
+    new QRCode(qrContainer, {
+      text: randomText,
       width: 200,
       height: 200,
-      colorDark : "#ffc65d",
-      colorLight : "#ffffff",
-      correctLevel : QRCode.CorrectLevel.M,
-      // Após o QR code ser gerado, estilizamos a canvas
-      callback: function() {
-        const qrCanvas = document.getElementById("qrCode").getElementsByTagName("canvas")[0];
-        if (qrCanvas) {
-          qrCanvas.style.borderRadius = "8px";  // Aplica o border-radius
-          qrCanvas.style.overflow = "hidden";   // Garante que o conteúdo respeite o border-radius
-        }
-      }
+      colorDark: "#ffc65d",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
     });
+
+    // Estiliza o canvas (opcional)
+    const qrCanvas = qrContainer.getElementsByTagName("canvas")[0];
+    if (qrCanvas) {
+      qrCanvas.style.borderRadius = "8px";
+      qrCanvas.style.overflow = "hidden";
+    }
   }
 
   gerarQRCode()

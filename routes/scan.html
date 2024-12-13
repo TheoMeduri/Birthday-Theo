@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Escanear QR Code</title>
+  <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+  <style>
+    body {
+      position: relative;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1f2122;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #f9f9f9;
+      position: absolute;
+      top: 30px;
+      background-color: #1f2122;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow:  0 0 10px #00000357;
+    }
+
+    #preview {
+      margin: 20px;
+      width: 100%;
+      height: 100vh;
+      max-width: 360px;
+      border: 4px solid #ffc65d;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #message {
+      position: absolute;
+      top: 100px;
+      background-color: #af4c4c88;
+      backdrop-filter: blur(10px);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff3838;
+      display: none;
+      align-items: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escanear QR Code</h1>
+  <video id="preview" autoplay></video>
+  <p id="message">Testando apenas!</p>
+  <script>
+    async function escanearQRCode() {
+      const video = document.getElementById("preview");
+      const messageElement = document.getElementById("message");
+
+      try {
+        // Solicita acesso à câmera
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+        video.srcObject = stream;
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        video.addEventListener("play", () => {
+          const scan = setInterval(() => {
+            // Atualiza o canvas com a imagem do vídeo
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Lê o QR Code da imagem
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+
+            if (qrCode) {
+              clearInterval(scan); // Para o processo de escaneamento
+              stream.getTracks().forEach(track => track.stop()); // Encerra a câmera
+              video.style.display = "none";
+
+              // Exibe a mensagem
+              if (qrCode.data === localStorage.getItem("qrcodeText")) {
+                messageElement.style.display  = "flex"
+                messageElement.innerHTML = '<i class="ri-shield-check-line"></i> Você foi liberado!';
+                messageElement.style.backgroundColor = "#4caf4f88"
+                messageElement.style.color = "#38ff3e"
+            } else {
+                messageElement.style.display  = "flex"
+                messageElement.innerText = '<i class="ri-error-warning-line"></i> QR Code inválido!';
+                messageElement.style.backgroundColor = "#af4c4c88"
+                messageElement.style.color = "#ff3838"
+              }
+            }
+          }, 500);
+          messageElement.style.display  = "none"
+        });
+      } catch (error) {
+        messageElement.style.display  = "none"
+        // alert("Erro ao acessar a câmera: " + error.message);
+      }
+    }
+
+    escanearQRCode();
+  </script>
+</body>
+</html>
